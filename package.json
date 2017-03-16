@@ -11,7 +11,10 @@
     "doc": "doc",
     "test": "tests"
   },
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kanongil/ember-stable-hash.git"
+  },
   "scripts": {
     "build": "ember build",
     "start": "ember server",
@@ -45,5 +48,10 @@
     "versionCompatibility": {
       "ember": ">=2.10.0"
     }
-  }
+  },
+  "main": "index.js",
+  "bugs": {
+    "url": "https://github.com/kanongil/ember-stable-hash/issues"
+  },
+  "homepage": "https://github.com/kanongil/ember-stable-hash#readme"
 }
