@@ -3,10 +3,12 @@ module.exports = {
   "test_page": "tests/index.html?hidepassed",
   "disable_watching": true,
   "launch_in_ci": [
-    "PhantomJS"
+    "Chrome Canary"
   ],
   "launch_in_dev": [
-    "PhantomJS",
-    "Chrome"
-  ]
+    "Chrome Canary"
+  ],
+  "browser_args": {
+    "Chrome Canary": ["--headless", "--disable-gpu", "--remote-debugging-port=9222"],
+  }
 };
