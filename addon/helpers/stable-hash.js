@@ -30,5 +30,5 @@ class StableHashReference {
 }
 
 export default function (vm, args) {
-  return new StableHashReference(args.named);
+  return new StableHashReference(args.named.capture ? args.named.capture() : args.named);
 }
