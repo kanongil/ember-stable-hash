@@ -9,7 +9,7 @@ const { Environment } = Glimmer;
 export default function hookStableHash(name = 'stable-hash') {
   const origCreate = Environment.create;
   Environment.create = function () {
-    let env = origCreate(...arguments);
+    let env = origCreate.call(this, ...arguments);
     env.builtInHelpers[name] = HashHandler;
     return env;
   };
