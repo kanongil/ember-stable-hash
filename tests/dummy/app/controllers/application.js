@@ -1,13 +1,14 @@
-import Ember from 'ember';
+import { later } from '@ember/runloop';
+import Controller from '@ember/controller';
 
 /* eslint-disable no-console */
 
-export default Ember.Controller.extend({
+export default Controller.extend({
     a: '123',
     b: 'abc',
 
     init() {
-        Ember.run.later(() => {
+        later(() => {
             console.log('update');
             this.set('a', '321');
         })

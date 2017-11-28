@@ -1,14 +1,9 @@
 
+import { run } from '@ember/runloop';
+import { observer, set, get } from '@ember/object';
+import Component from '@ember/component';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
-
-const {
-  get,
-  set,
-  observer,
-  Component
-} = Ember;
 
 moduleForComponent('stable-hash', 'helper:stable-hash', {
   integration: true
@@ -94,10 +89,10 @@ test('should yield hash of internal properties', function(assert) {
   this.render(hbs`{{#foo-bar as |values|}}{{values.firstName}}{{/foo-bar}}`);
   assert.equal(this.$().text().trim(), 'Chad');
 
-  Ember.run(() => fooBarInstance.set('model.firstName', 'Godfrey'));
+  run(() => fooBarInstance.set('model.firstName', 'Godfrey'));
   assert.equal(this.$().text().trim(), 'Godfrey');
 
-  Ember.run(() => fooBarInstance.set('model', { firstName: 'Chad' }));
+  run(() => fooBarInstance.set('model', { firstName: 'Chad' }));
   assert.equal(this.$().text().trim(), 'Chad');
 });
 
@@ -119,13 +114,13 @@ test('should yield hash of internal and external properties', function(assert) {
   this.render(hbs`{{#foo-bar lastName=model.lastName as |values|}}{{values.firstName}} {{values.lastName}}{{/foo-bar}}`);
   assert.equal(this.$().text().trim(), 'Chad Hietala');
 
-  Ember.run(() => {
+  run(() => {
     set(fooBarInstance, 'model.firstName', 'Godfrey');
     set(this, 'model.lastName', 'Chan');
   });
   assert.equal(this.$().text().trim(), 'Godfrey Chan');
 
-  Ember.run(() => {
+  run(() => {
     set(fooBarInstance, 'model', { firstName: 'Chad' });
     set(this, 'model', { lastName: 'Hietala' });
   });

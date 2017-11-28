@@ -1,6 +1,4 @@
-import Ember from 'ember';
-
-const { setProperties } = Ember;
+import { setProperties } from '@ember/object';
 
 class StableHashReference {
 
