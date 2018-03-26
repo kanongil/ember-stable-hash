@@ -12,5 +12,7 @@ export default Controller.extend({
             console.log('update');
             this.set('a', '321');
         })
+
+        return this._super(...arguments);
     }
 });

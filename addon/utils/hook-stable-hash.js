@@ -10,9 +10,26 @@ export default function hookStableHash(name = 'stable-hash') {
   const origCreate = Environment.create;
   Environment.create = function () {
     let env = origCreate.call(this, ...arguments);
-    env.builtInHelpers[name] = HashHandler;
+
+    let { builtInHelpers } = env;
+    if (!builtInHelpers) {
+      // ember@3.1 has moved builtInHelpers to a resolver
+
+      const Container = emberRequire('container');
+      const rootTemplate = env.owner.lookup(Container.privatize`template:-root`);
+
+      if (rootTemplate.compiler && rootTemplate.compiler.resolver) {
+        builtInHelpers = rootTemplate.compiler.resolver.resolver.builtInHelpers;
+      } else {
+        builtInHelpers = rootTemplate.options.resolver.resolver.builtInHelpers;
+      }
+    }
+
+    builtInHelpers[name] = HashHandler;
+
     return env;
   };
+
   Environment.isServiceFactory = true;
 
   return Environment;
