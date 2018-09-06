@@ -21,6 +21,7 @@
   "homepage": "https://github.com/kanongil/ember-stable-hash#readme",
   "scripts": {
     "build": "ember build",
+    "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
     "start": "ember serve",
     "test": "ember test",
