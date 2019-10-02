@@ -25,13 +25,9 @@ export default function hookStableHash(name = 'stable-hash') {
       // ember@3.1 has moved builtInHelpers to a resolver
 
       const privatize = requireMethod('privatize', '@ember/-internals/container', 'container');
-      const rootTemplate = env.owner.lookup(privatize`template:-root`);
+      const compiler = env.owner.lookup(privatize`template-compiler:main`);
 
-      if (rootTemplate.compiler && rootTemplate.compiler.resolver) {
-        builtInHelpers = rootTemplate.compiler.resolver.resolver.builtInHelpers;
-      } else {
-        builtInHelpers = rootTemplate.options.resolver.resolver.builtInHelpers;
-      }
+      builtInHelpers = compiler.resolver.resolver.builtInHelpers;
     }
 
     builtInHelpers[name] = HashHandler;
