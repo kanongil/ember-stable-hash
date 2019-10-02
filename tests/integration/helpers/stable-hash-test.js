@@ -7,6 +7,8 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
+/* eslint-disable ember/no-observers */
+
 module('helper:stable-hash', function(hooks) {
   setupRenderingTest(hooks);
 
