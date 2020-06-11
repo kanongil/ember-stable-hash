@@ -15,7 +15,7 @@ module('helper:stable-hash', function(hooks) {
   test('returns a hash with the right key-value', async function(assert) {
     await render(hbs`{{#with (stable-hash name=\"Sergio\") as |person|}}{{person.name}}{{/with}}`);
 
-    assert.dom('*').hasText('Sergio');
+    assert.dom().hasText('Sergio');
   });
 
   test('can have more than one key-value', async function(assert) {
@@ -23,7 +23,7 @@ module('helper:stable-hash', function(hooks) {
       hbs`{{#with (stable-hash name="Sergio" lastName="Arbeo") as |person|}}{{person.name}} {{person.lastName}}{{/with}}`
     );
 
-    assert.dom('*').hasText('Sergio Arbeo');
+    assert.dom().hasText('Sergio Arbeo');
   });
 
   test('binds values when variables are used', async function(assert) {
@@ -34,13 +34,13 @@ module('helper:stable-hash', function(hooks) {
     await render(
       hbs`{{#with (stable-hash name=model.firstName lastName="Arbeo") as |person|}}{{person.name}} {{person.lastName}}{{/with}}`
     );
-    assert.dom('*').hasText('Marisa Arbeo');
+    assert.dom().hasText('Marisa Arbeo');
 
     this.set('model.firstName', 'Sergio');
-    assert.dom('*').hasText('Sergio Arbeo');
+    assert.dom().hasText('Sergio Arbeo');
 
     this.set('model.firstName', 'Marisa');
-    assert.dom('*').hasText('Marisa Arbeo');
+    assert.dom().hasText('Marisa Arbeo');
   });
 
   test('binds multiple values when variables are used', async function(assert) {
@@ -52,19 +52,19 @@ module('helper:stable-hash', function(hooks) {
     await render(
       hbs`{{#with (stable-hash name=model.firstName lastName=model.lastName) as |person|}}{{person.name}} {{person.lastName}}{{/with}}`
     );
-    assert.dom('*').hasText('Marisa Arbeo');
+    assert.dom().hasText('Marisa Arbeo');
 
     this.set('model.firstName', 'Sergio');
-    assert.dom('*').hasText('Sergio Arbeo');
+    assert.dom().hasText('Sergio Arbeo');
 
     this.set('model.lastName', 'Smith');
-    assert.dom('*').hasText('Sergio Smith');
+    assert.dom().hasText('Sergio Smith');
 
     this.set('model', {
       firstName: 'Marisa',
       lastName: 'Arbeo'
     });
-    assert.dom('*').hasText('Marisa Arbeo');
+    assert.dom().hasText('Marisa Arbeo');
   });
 
   test('hash helpers can be nested', async function(assert) {
@@ -75,13 +75,13 @@ module('helper:stable-hash', function(hooks) {
     await render(
       hbs`{{#with (stable-hash person=(stable-hash name=model.firstName)) as |ctx|}}{{ctx.person.name}}{{/with}}`
     );
-    assert.dom('*').hasText('Balint');
+    assert.dom().hasText('Balint');
 
     this.set('model.firstName', 'Chad');
-    assert.dom('*').hasText('Chad');
+    assert.dom().hasText('Chad');
 
     this.set('model', { firstName: 'Balint' });
-    assert.dom('*').hasText('Balint');
+    assert.dom().hasText('Balint');
   });
 
   test('should yield hash of internal properties', async function(assert) {
@@ -98,13 +98,13 @@ module('helper:stable-hash', function(hooks) {
     this.owner.register('template:components/foo-bar', hbs`{{yield (stable-hash firstName=model.firstName)}}`);
 
     await render(hbs`{{#foo-bar as |values|}}{{values.firstName}}{{/foo-bar}}`);
-    assert.dom('*').hasText('Chad');
+    assert.dom().hasText('Chad');
 
     run(() => fooBarInstance.set('model.firstName', 'Godfrey'));
-    assert.dom('*').hasText('Godfrey');
+    assert.dom().hasText('Godfrey');
 
     run(() => fooBarInstance.set('model', { firstName: 'Chad' }));
-    assert.dom('*').hasText('Chad');
+    assert.dom().hasText('Chad');
   });
 
   test('should yield hash of internal and external properties', async function(assert) {
@@ -125,19 +125,19 @@ module('helper:stable-hash', function(hooks) {
     await render(
       hbs`{{#foo-bar lastName=model.lastName as |values|}}{{values.firstName}} {{values.lastName}}{{/foo-bar}}`
     );
-    assert.dom('*').hasText('Chad Hietala');
+    assert.dom().hasText('Chad Hietala');
 
     run(() => {
       set(fooBarInstance, 'model.firstName', 'Godfrey');
       set(this, 'model.lastName', 'Chan');
     });
-    assert.dom('*').hasText('Godfrey Chan');
+    assert.dom().hasText('Godfrey Chan');
 
     run(() => {
       set(fooBarInstance, 'model', { firstName: 'Chad' });
       set(this, 'model', { lastName: 'Hietala' });
     });
-    assert.dom('*').hasText('Chad Hietala');
+    assert.dom().hasText('Chad Hietala');
   });
 
   test('returns stable object when updated', async function(assert) {
@@ -158,12 +158,12 @@ module('helper:stable-hash', function(hooks) {
     let hashInstance = get(fooBarInstance, 'model');
 
     assert.strictEqual(hashInstance, get(fooBarInstance, 'model'));
-    assert.dom('*').hasText('Sergio Arbeo');
+    assert.dom().hasText('Sergio Arbeo');
 
     this.set('firstName', 'Godfrey');
 
     assert.strictEqual(hashInstance, get(fooBarInstance, 'model'));
-    assert.dom('*').hasText('Godfrey Arbeo');
+    assert.dom().hasText('Godfrey Arbeo');
   });
 
   test('correctly triggers observers', async function(assert) {
@@ -194,13 +194,13 @@ module('helper:stable-hash', function(hooks) {
     assert.equal(modelTriggerCnt, 0);
     assert.equal(firstNameTriggerCnt, 0);
     assert.equal(lastNameTriggerCnt, 0);
-    assert.dom('*').hasText('Sergio Arbeo');
+    assert.dom().hasText('Sergio Arbeo');
 
     this.set('firstName', 'Godfrey');
 
     assert.equal(modelTriggerCnt, 0);
     assert.equal(firstNameTriggerCnt, 1);
     assert.equal(lastNameTriggerCnt, 0);
-    assert.dom('*').hasText('Godfrey Arbeo');
+    assert.dom().hasText('Godfrey Arbeo');
   });
 });

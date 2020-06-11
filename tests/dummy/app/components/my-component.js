@@ -1,7 +1,7 @@
 import { observer } from '@ember/object';
 import Component from '@ember/component';
 
-/* eslint-disable no-console, ember/no-observers */
+/* eslint-disable no-console, ember/no-observers, ember/no-get */
 
 export default Component.extend({
   didRender() {

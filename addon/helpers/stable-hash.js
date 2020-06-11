@@ -1,32 +1,15 @@
 import { setProperties } from '@ember/object';
+import Helper from '@ember/component/helper';
 
-class StableHashReference {
+export default class StableHash extends Helper {
+  constructor(...args) {
+    super(...args);
 
-  constructor(args) {
-    this.tag = args.tag;
-    this.args = args;
-    this.inner = null;
+    this.obj = {};
   }
 
-  value() {
-    let { args, inner } = this;
-
-    let hash = args.value();
-    if (!inner) {
-      this.inner = inner = hash;
-    } else {
-      setProperties(inner, hash);
-    }
-
-    return inner;
+  compute(positional, named) {
+    setProperties(this.obj, named);
+    return this.obj;
   }
-
-  get(path) {
-    let { args } = this;
-    return args.get(path);
-  }
-}
-
-export default function (vm, args) {
-  return new StableHashReference(args.named.capture ? args.named.capture() : args.named);
 }

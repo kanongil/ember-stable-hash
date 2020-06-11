@@ -48,7 +48,7 @@
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-qunit": "^4.6.0",
     "ember-resolver": "^8.0.0",
-    "ember-source": "~3.13.0",
+    "ember-source": "^3.19.0",
     "ember-source-channel-url": "^2.0.1",
     "ember-template-lint": "^2.6.0",
     "ember-try": "^1.4.0",
@@ -62,10 +62,13 @@
   "engines": {
     "node": "10.* || >= 12"
   },
+  "ember": {
+    "edition": "octane"
+  },
   "ember-addon": {
     "configPath": "tests/dummy/config",
     "versionCompatibility": {
-      "ember": ">=2.10.0"
+      "ember": ">=3.8.0"
     }
   }
 }

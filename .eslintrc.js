@@ -21,7 +21,8 @@ module.exports = {
     browser: true
   },
   rules: {
-    'ember/no-jquery': 'error'
+    'ember/no-jquery': 'error',
+    'ember/no-observers': 0 // FIXME: disabled, since it is impossible to disable conditionally
   },
   overrides: [
     // node files
