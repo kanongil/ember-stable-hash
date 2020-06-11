@@ -1,6 +1,6 @@
 {
   "name": "ember-stable-hash",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Hash helper that doesn't regenerate the base object on each potential property change",
   "keywords": [
     "ember-addon"
